@@ -13,32 +13,47 @@ exports.UserRouter = void 0;
 const express_1 = require("express");
 const User_repo_1 = require("../repositories/User.repo");
 exports.UserRouter = (0, express_1.Router)();
+// Create User
 exports.UserRouter.post("/", (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     try {
-        const { name, userName } = req.body;
-        const newUser = yield (0, User_repo_1.createUser)({
-            name, userName
-        });
-        return res.send(newUser);
+        const { username, firstname, lastname, email, phone } = req.body;
+        const newUser = yield (0, User_repo_1.createUser)({ username, firstname, lastname, email, phone });
+        if (!newUser) {
+            return res.sendStatus(500);
+        }
+        return res.status(201).json(newUser);
     }
     catch (error) {
         console.error(error);
+        return res.sendStatus(500);
     }
 }));
-exports.UserRouter.get("/:userId", (req, res) => __awaiter(void 0, void 0, void 0, function* () {
-    const params = req.params;
-    const foundUser = yield (0, User_repo_1.readUser)(Number(params.userId));
+// Get User by Username
+exports.UserRouter.get("/:username", (req, res) => __awaiter(void 0, void 0, void 0, function* () {
+    const username = req.params.username;
+    const foundUser = yield (0, User_repo_1.getUserByUsername)(username);
     if (!foundUser) {
         return res.sendStatus(404);
     }
-    res.status(200);
-    return res.send(foundUser.toJSON());
+    return res.json(foundUser);
 }));
-exports.UserRouter.get("/", (req, res) => __awaiter(void 0, void 0, void 0, function* () {
-    const allUsers = yield (0, User_repo_1.readAllUsers)();
-    if (!allUsers) {
+// Update User by Username
+exports.UserRouter.put("/:username", (req, res) => __awaiter(void 0, void 0, void 0, function* () {
+    const username = req.params.username;
+    const { username: newUsername, firstname, lastname, email, phone } = req.body;
+    const updatedUser = yield (0, User_repo_1.updateUserByUsername)(username, { username: newUsername, firstname, lastname, email, phone });
+    if (!updatedUser) {
         return res.sendStatus(404);
     }
-    res.status(200);
-    return res.send(allUsers);
+    return res.json(updatedUser);
 }));
+// Delete User by Username
+exports.UserRouter.delete("/:username", (req, res) => __awaiter(void 0, void 0, void 0, function* () {
+    const username = req.params.username;
+    const success = yield (0, User_repo_1.deleteUserByUsername)(username);
+    if (!success) {
+        return res.sendStatus(404);
+    }
+    return res.sendStatus(204);
+}));
+exports.default = exports.UserRouter;

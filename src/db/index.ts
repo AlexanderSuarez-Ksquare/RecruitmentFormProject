@@ -1,37 +1,32 @@
 import { Sequelize } from "sequelize";
-import User, {setUpUser} from "../models/User"
-import Comment, { setUpComment} from "../models/Comment";
-import Post, { setUpPost } from "../models/Post";
+import { setUpUser } from "../models/user";
+import { setUpPersonalInfo } from "../models/personalinfo";
+import { setUpAddress } from "../models/address";
+import { setUpAddressExtraInfo } from "../models/addressextrainfo";
+import { setUpGovernmentInfo } from "../models/governmentinfo";
+import { setUpProfile } from "../models/profile";
+import { setUpAcademicInfo } from "../models/academicinfo";
+import { setUpFormalEducationInfo } from "../models/formaleducationinfo";
+import { setUpScholarshipInfo} from "../models/scholarshipinfo";
+import { setUpBankAccountInfo } from "../models/bankaccountinfo";
+import { setUpSkill } from "../models/skill";
+
 
 export let sequelize : Sequelize;
 
 export const startDB = (url : string): Sequelize=>{
     sequelize = new Sequelize(url);
     setUpUser(sequelize);
-    setUpPost(sequelize);
-    setUpComment(sequelize);
-    User.hasMany(Post, {
-        foreignKey: 'userId'
-    });
+    setUpPersonalInfo(sequelize);
+    setUpAddress(sequelize);
+    setUpAddressExtraInfo(sequelize);
+    setUpGovernmentInfo(sequelize);
+    setUpProfile(sequelize);
+    setUpAcademicInfo(sequelize);
+    setUpFormalEducationInfo(sequelize);
+    setUpScholarshipInfo(sequelize);
+    setUpBankAccountInfo(sequelize);
+    setUpSkill(sequelize);
 
-    Post.belongsTo(User, {
-        foreignKey: 'userId'
-    });
-
-    Post.hasMany(Comment, {
-        foreignKey: 'postId'
-    });
-
-    Comment.belongsTo(Post, {
-        foreignKey: 'postId'
-    });
-
-    User.hasMany(Comment, {
-        foreignKey: 'userId'
-    });
-
-    Comment.belongsTo(User, {
-        foreignKey: 'userId'
-    });
     return sequelize;
 }

@@ -23,7 +23,7 @@ app_1.default.listen(PORT, () => __awaiter(void 0, void 0, void 0, function* () 
         if (URI_CONN) {
             const sequelize = (0, db_1.startDB)(URI_CONN);
             yield sequelize.authenticate();
-            yield sequelize.sync({ force: true });
+            // await sequelize.sync({force: true})
             console.log(`App is listening at port ${PORT}`);
         }
     }

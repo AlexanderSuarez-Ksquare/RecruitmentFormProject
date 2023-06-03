@@ -1,56 +1,31 @@
 "use strict";
-var __createBinding = (this && this.__createBinding) || (Object.create ? (function(o, m, k, k2) {
-    if (k2 === undefined) k2 = k;
-    var desc = Object.getOwnPropertyDescriptor(m, k);
-    if (!desc || ("get" in desc ? !m.__esModule : desc.writable || desc.configurable)) {
-      desc = { enumerable: true, get: function() { return m[k]; } };
-    }
-    Object.defineProperty(o, k2, desc);
-}) : (function(o, m, k, k2) {
-    if (k2 === undefined) k2 = k;
-    o[k2] = m[k];
-}));
-var __setModuleDefault = (this && this.__setModuleDefault) || (Object.create ? (function(o, v) {
-    Object.defineProperty(o, "default", { enumerable: true, value: v });
-}) : function(o, v) {
-    o["default"] = v;
-});
-var __importStar = (this && this.__importStar) || function (mod) {
-    if (mod && mod.__esModule) return mod;
-    var result = {};
-    if (mod != null) for (var k in mod) if (k !== "default" && Object.prototype.hasOwnProperty.call(mod, k)) __createBinding(result, mod, k);
-    __setModuleDefault(result, mod);
-    return result;
-};
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.startDB = exports.sequelize = void 0;
 const sequelize_1 = require("sequelize");
-const User_1 = __importStar(require("../models/User"));
-const Comment_1 = __importStar(require("../models/Comment"));
-const Post_1 = __importStar(require("../models/Post"));
+const user_1 = require("../models/user");
+const personalinfo_1 = require("../models/personalinfo");
+const address_1 = require("../models/address");
+const addressextrainfo_1 = require("../models/addressextrainfo");
+const governmentinfo_1 = require("../models/governmentinfo");
+const profile_1 = require("../models/profile");
+const academicinfo_1 = require("../models/academicinfo");
+const formaleducationinfo_1 = require("../models/formaleducationinfo");
+const scholarshipinfo_1 = require("../models/scholarshipinfo");
+const bankaccountinfo_1 = require("../models/bankaccountinfo");
+const skill_1 = require("../models/skill");
 const startDB = (url) => {
     exports.sequelize = new sequelize_1.Sequelize(url);
-    (0, User_1.setUpUser)(exports.sequelize);
-    (0, Post_1.setUpPost)(exports.sequelize);
-    (0, Comment_1.setUpComment)(exports.sequelize);
-    User_1.default.hasMany(Post_1.default, {
-        foreignKey: 'userId'
-    });
-    Post_1.default.belongsTo(User_1.default, {
-        foreignKey: 'userId'
-    });
-    Post_1.default.hasMany(Comment_1.default, {
-        foreignKey: 'postId'
-    });
-    Comment_1.default.belongsTo(Post_1.default, {
-        foreignKey: 'postId'
-    });
-    User_1.default.hasMany(Comment_1.default, {
-        foreignKey: 'userId'
-    });
-    Comment_1.default.belongsTo(User_1.default, {
-        foreignKey: 'userId'
-    });
+    (0, user_1.setUpUser)(exports.sequelize);
+    (0, personalinfo_1.setUpPersonalInfo)(exports.sequelize);
+    (0, address_1.setUpAddress)(exports.sequelize);
+    (0, addressextrainfo_1.setUpAddressExtraInfo)(exports.sequelize);
+    (0, governmentinfo_1.setUpGovernmentInfo)(exports.sequelize);
+    (0, profile_1.setUpProfile)(exports.sequelize);
+    (0, academicinfo_1.setUpAcademicInfo)(exports.sequelize);
+    (0, formaleducationinfo_1.setUpFormalEducationInfo)(exports.sequelize);
+    (0, scholarshipinfo_1.setUpScholarshipInfo)(exports.sequelize);
+    (0, bankaccountinfo_1.setUpBankAccountInfo)(exports.sequelize);
+    (0, skill_1.setUpSkill)(exports.sequelize);
     return exports.sequelize;
 };
 exports.startDB = startDB;
