@@ -9,10 +9,13 @@ const setUpUser = (sequelize) => {
         id: {
             type: sequelize_1.DataTypes.INTEGER,
             autoIncrement: true,
-            primaryKey: true
+            primaryKey: true,
         },
-        name: sequelize_1.DataTypes.STRING,
-        userName: sequelize_1.DataTypes.STRING
+        username: sequelize_1.DataTypes.STRING,
+        firstname: sequelize_1.DataTypes.STRING,
+        lastname: sequelize_1.DataTypes.STRING,
+        email: sequelize_1.DataTypes.STRING,
+        phone: sequelize_1.DataTypes.STRING,
     }, { sequelize, modelName: "User" });
 };
 exports.setUpUser = setUpUser;

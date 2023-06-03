@@ -12,12 +12,12 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.deleteUserByUsername = exports.updateUserByUsername = exports.getUserByUsername = exports.createUser = void 0;
-const user_1 = __importDefault(require("../models/user"));
+exports.deleteBankAccountInfoById = exports.updateBankAccountInfoById = exports.getBankAccountInfoById = exports.createBankAccountInfo = void 0;
+const bankaccountinfo_1 = __importDefault(require("../models/bankaccountinfo"));
 // Create
-const createUser = (data) => __awaiter(void 0, void 0, void 0, function* () {
+const createBankAccountInfo = (data) => __awaiter(void 0, void 0, void 0, function* () {
     try {
-        const response = yield user_1.default.create(data);
+        const response = yield bankaccountinfo_1.default.create(data);
         return response;
     }
     catch (error) {
@@ -25,11 +25,11 @@ const createUser = (data) => __awaiter(void 0, void 0, void 0, function* () {
         return null;
     }
 });
-exports.createUser = createUser;
-// Read by username
-const getUserByUsername = (username) => __awaiter(void 0, void 0, void 0, function* () {
+exports.createBankAccountInfo = createBankAccountInfo;
+// Read by ID
+const getBankAccountInfoById = (id) => __awaiter(void 0, void 0, void 0, function* () {
     try {
-        const response = yield user_1.default.findOne({ where: { username } });
+        const response = yield bankaccountinfo_1.default.findByPk(id);
         return response;
     }
     catch (error) {
@@ -37,14 +37,14 @@ const getUserByUsername = (username) => __awaiter(void 0, void 0, void 0, functi
         return null;
     }
 });
-exports.getUserByUsername = getUserByUsername;
-// Update by username
-const updateUserByUsername = (username, data) => __awaiter(void 0, void 0, void 0, function* () {
+exports.getBankAccountInfoById = getBankAccountInfoById;
+// Update by ID
+const updateBankAccountInfoById = (id, data) => __awaiter(void 0, void 0, void 0, function* () {
     try {
-        const user = yield user_1.default.findOne({ where: { username } });
-        if (user) {
-            yield user.update(data);
-            return user;
+        const bankAccountInfo = yield bankaccountinfo_1.default.findByPk(id);
+        if (bankAccountInfo) {
+            yield bankAccountInfo.update(data);
+            return bankAccountInfo;
         }
         return null;
     }
@@ -53,13 +53,13 @@ const updateUserByUsername = (username, data) => __awaiter(void 0, void 0, void 
         return null;
     }
 });
-exports.updateUserByUsername = updateUserByUsername;
-// Delete by username
-const deleteUserByUsername = (username) => __awaiter(void 0, void 0, void 0, function* () {
+exports.updateBankAccountInfoById = updateBankAccountInfoById;
+// Delete by ID
+const deleteBankAccountInfoById = (id) => __awaiter(void 0, void 0, void 0, function* () {
     try {
-        const user = yield user_1.default.findOne({ where: { username } });
-        if (user) {
-            yield user.destroy();
+        const bankAccountInfo = yield bankaccountinfo_1.default.findByPk(id);
+        if (bankAccountInfo) {
+            yield bankAccountInfo.destroy();
             return true;
         }
         return false;
@@ -69,4 +69,4 @@ const deleteUserByUsername = (username) => __awaiter(void 0, void 0, void 0, fun
         return false;
     }
 });
-exports.deleteUserByUsername = deleteUserByUsername;
+exports.deleteBankAccountInfoById = deleteBankAccountInfoById;

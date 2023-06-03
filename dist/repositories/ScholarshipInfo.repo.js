@@ -12,12 +12,12 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.deleteUserByUsername = exports.updateUserByUsername = exports.getUserByUsername = exports.createUser = void 0;
-const user_1 = __importDefault(require("../models/user"));
+exports.deleteScholarshipInfoById = exports.updateScholarshipInfoById = exports.getScholarshipInfoById = exports.createScholarshipInfo = void 0;
+const scholarshipinfo_1 = __importDefault(require("../models/scholarshipinfo"));
 // Create
-const createUser = (data) => __awaiter(void 0, void 0, void 0, function* () {
+const createScholarshipInfo = (data) => __awaiter(void 0, void 0, void 0, function* () {
     try {
-        const response = yield user_1.default.create(data);
+        const response = yield scholarshipinfo_1.default.create(data);
         return response;
     }
     catch (error) {
@@ -25,11 +25,11 @@ const createUser = (data) => __awaiter(void 0, void 0, void 0, function* () {
         return null;
     }
 });
-exports.createUser = createUser;
-// Read by username
-const getUserByUsername = (username) => __awaiter(void 0, void 0, void 0, function* () {
+exports.createScholarshipInfo = createScholarshipInfo;
+// Read by ID
+const getScholarshipInfoById = (id) => __awaiter(void 0, void 0, void 0, function* () {
     try {
-        const response = yield user_1.default.findOne({ where: { username } });
+        const response = yield scholarshipinfo_1.default.findByPk(id);
         return response;
     }
     catch (error) {
@@ -37,14 +37,14 @@ const getUserByUsername = (username) => __awaiter(void 0, void 0, void 0, functi
         return null;
     }
 });
-exports.getUserByUsername = getUserByUsername;
-// Update by username
-const updateUserByUsername = (username, data) => __awaiter(void 0, void 0, void 0, function* () {
+exports.getScholarshipInfoById = getScholarshipInfoById;
+// Update by ID
+const updateScholarshipInfoById = (id, data) => __awaiter(void 0, void 0, void 0, function* () {
     try {
-        const user = yield user_1.default.findOne({ where: { username } });
-        if (user) {
-            yield user.update(data);
-            return user;
+        const scholarshipInfo = yield scholarshipinfo_1.default.findByPk(id);
+        if (scholarshipInfo) {
+            yield scholarshipInfo.update(data);
+            return scholarshipInfo;
         }
         return null;
     }
@@ -53,13 +53,13 @@ const updateUserByUsername = (username, data) => __awaiter(void 0, void 0, void 
         return null;
     }
 });
-exports.updateUserByUsername = updateUserByUsername;
-// Delete by username
-const deleteUserByUsername = (username) => __awaiter(void 0, void 0, void 0, function* () {
+exports.updateScholarshipInfoById = updateScholarshipInfoById;
+// Delete by ID
+const deleteScholarshipInfoById = (id) => __awaiter(void 0, void 0, void 0, function* () {
     try {
-        const user = yield user_1.default.findOne({ where: { username } });
-        if (user) {
-            yield user.destroy();
+        const scholarshipInfo = yield scholarshipinfo_1.default.findByPk(id);
+        if (scholarshipInfo) {
+            yield scholarshipInfo.destroy();
             return true;
         }
         return false;
@@ -69,4 +69,4 @@ const deleteUserByUsername = (username) => __awaiter(void 0, void 0, void 0, fun
         return false;
     }
 });
-exports.deleteUserByUsername = deleteUserByUsername;
+exports.deleteScholarshipInfoById = deleteScholarshipInfoById;
